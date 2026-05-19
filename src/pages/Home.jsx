@@ -1,140 +1,282 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import LOGOrami from "../assets/LOGOrami.png";
 import img1 from "../assets/img1.png";
-// ضمن المكون نفسه
-const images = import.meta.glob("../assets/products/*.jpeg", { eager: true });
-const productImages = Object.values(images).map((img) => img.default);
-import { FaWhatsapp, FaPhone, FaMapMarkerAlt, FaInfoCircle } from "react-icons/fa";
-import logo from "../assets/logo.png"; // استيراد الصورة محلياً
 
 export default function Home() {
-  const [dropdownOpen, setDropdownOpen] = useState(null);
-
-  const pages = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "المنتجات", path: "/products", dropdown: ["منتج 1", "منتج 2"] },
-    { name: "Portfolio", path: "/portfolio" },
-    { name: "Contact", path: "/contact" },
-    { name: "Careers", path: "/careers" },
-    { name: "FAQ", path: "/faq" },
+  const [selectedSubject, setSelectedSubject] = useState(null);
+const [tab, setTab] = useState("images");
+  const subjects = [
+    {
+      name: "English",
+      image: "/subjects/english.avif",
+      gallery: [
+        "/subjects/english/img1.avif",
+        "/subjects/english/img2.avif",
+        "/subjects/english/img3.webp",
+         "/subjects/english/img4.webp",
+        "/subjects/english/img5.webp",
+        "/subjects/english/img6.webp",
+      ],
+      videos: [
+        "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        "https://www.youtube.com/embed/dQw4w9WgXcQ",
+      ],
+    },
+    {
+      name: "Arabic",
+      image: "/subjects/arabic.avif",
+      gallery: [],
+      videos: [],
+    },
+    {
+      name: "Scratch",
+      image: "/subjects/scratch.avif",
+      gallery: [],
+      videos: [],
+    },
+    {
+      name: "Krita",
+      image: "/subjects/krita.webp",
+      gallery: [],
+      videos: [],
+    },
+    {
+      name: "Blender",
+      image: "/subjects/blender.avif",
+      gallery: [],
+      videos: [],
+    },
+    {
+      name: "Science",
+      image: "/subjects/science.avif",
+      gallery: [],
+      videos: [],
+    },
+    {
+      name: "Social Studies",
+      image: "/subjects/social.webp",
+      gallery: [],
+      videos: [],
+    },
+    {
+      name: "Other",
+      image: "/subjects/other.avif",
+      gallery: [],
+      videos: [],
+    },
   ];
 
   return (
-    
-    <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-pink-50 flex flex-col">
-      {/* 🔹 الشريط العلوي */}
-      <div className="bg-white shadow-lg rounded-2xl mx-6 mt-6 p-4 flex items-center justify-between relative">
-        {/* الشعار */}
-        <div className="flex items-center space-x-4">
-          <img
-  src={LOGOrami}
-  alt="LOGOrami"
-  className="w-[100px] h-[100px] rounded-full shadow-md object-cover object-center !important"
-  style={{ width: "100px", height: "100px", objectFit: "cover" }}
-/>
+    <div className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-blue-50">
 
-        </div>
+      {/* 🔹 الهيدر */}
+      <div className="flex items-center justify-between px-6 py-3 bg-white shadow-md rounded-b-2xl">
+        <img
+          src={LOGOrami}
+          alt="logo"
+          className="rounded-full shadow-sm"
+          style={{ width: "70px", height: "70px", objectFit: "cover" }}
+        />
 
-     {/* أسماء الصفحات في المنتصف */}
-<div dir="rtl" className="flex flex-row-reverse justify-center items-center gap-[6rem]">
-      {pages.map((page, index) => (
-        <div
-          key={index}
-          className="relative"
-          onMouseEnter={() => setDropdownOpen(index)}
-          onMouseLeave={() => setDropdownOpen(null)}
-        >
-          {/* Link مع hover/focus وتحتوي على underline متحرك */}
-          <Link
-            to={page.path}
-             className="px-4 py-2 text-gray-800 hover:text-pink-600 focus:text-pink-600 cursor-pointer transition-colors duration-300"
-          >
-            {page.name}
-            {/* Underline متحرك */}
-            <span className="absolute bottom-0 left-0 w-0 h-[3px] bg-pink-500 group-hover:w-full transition-all duration-300"></span>
-          </Link>
+        <h1 className="text-xl md:text-2xl font-bold text-blue-600">
+          TopTeach - منصة تعليمية للأطفال
+        </h1>
 
-          {/* Dropdown عند التمرير */}
-          {dropdownOpen === index && page.dropdown && (
-            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-44 bg-white border border-gray-200 rounded-2xl shadow-xl z-20 animate-fade-in">
-              <ul className="text-center text-gray-700">
-                {page.dropdown.map((item, idx) => (
-                  <li
-                    key={idx}
-                    className="px-4 py-2 hover:bg-pink-50 hover:text-pink-600 cursor-pointer transition rounded-md"
-                  >
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      ))}
-    </div>
-
-        {/* البحث */}
-        <div className="flex items-center space-x-2">
-          <input
-            type="text"
-            placeholder="بحث..."
-            className="px-3 py-1 border rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-300"
-          />
-        </div>
+        <div className="w-10 h-10"></div>
       </div>
 
-      {/* 🔸 الصورة الرئيسية */}
-      <div className="mt-8 w-full h-[400px] relative px-6">
+      {/* 🔸 البانر */}
+      <div className="mt-6 px-6">
         <img
-  src={img1}
-  alt="img1"
-  className="w-[1920px] h-[200px] rounded-full shadow-md object-cover object-center !important"
-  style={{ width: "1920px", height: "200px", objectFit: "cover" }}
-/>
-
-
-        <div className="absolute inset-0 bg-black bg-opacity-30 rounded-2xl flex flex-col items-center justify-center text-white text-center">
-          <h1 className="text-5xl font-extrabold mb-4 drop-shadow-lg">
-            شركة الألبسة الحديثة
-          </h1>
-          <p className="text-lg font-medium drop-shadow-md">
-            أناقة عصرية – جودة عالية – أسعار تنافسية
-          </p>
-        </div>
-      </div>
-
-     {/* 🔹 بطاقات المنتجات بشكل أنيق */}
-<div className="bg-white rounded-2xl shadow-xl mx-6 mt-10 p-8 flex justify-center flex-wrap gap-10">
-  {productImages.map((src, index) => (
-    <div
-      key={index}
-      className="w-64 bg-gray-50 rounded-3xl shadow-md hover:shadow-2xl hover:scale-105 transform transition-all duration-300 p-4 flex flex-col items-center"
-    >
-      {/* الصورة داخل إطار دائري */}
-      <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-pink-300 shadow-inner mb-4">
-        <img
-          src={src}
-          alt={`منتج ${index + 1}`}
-          className="w-full h-full object-cover"
+          src={img1}
+          className="w-full h-[300px] object-cover rounded-2xl shadow-lg"
         />
       </div>
 
-      {/* العنوان */}
-      <h3 className="text-xl font-extrabold text-gray-800 mb-2">
-        منتج {index + 1}
-      </h3>
+      {/* 🔹 العنوان */}
+      <div className="text-center mt-10">
+        <h2 className="text-3xl font-extrabold text-gray-800">
+          اختر المادة التعليمية
+        </h2>
+        <p className="text-gray-500 mt-2">
+          اضغط على أي مادة لعرض المحتوى
+        </p>
+      </div>
 
-      {/* التفاصيل */}
-      <p className="text-gray-500 text-sm text-center leading-relaxed">
-        هذا وصف مختصر لمنتج {index + 1} يوضح أبرز ميزاته وجودته العالية.
-      </p>
+      {/* 🔹 الكروت */}
+      <div className="bg-white rounded-2xl shadow-xl mx-6 mt-10 p-8">
+        <div className="grid grid-cols-3 gap-10 justify-items-center">
+
+          {subjects.map((sub, index) => (
+            <div
+              key={index}
+              onClick={() => setSelectedSubject(sub)}
+              className="cursor-pointer hover:scale-105 transition"
+            >
+
+              {/* كرت */}
+              <div className="w-64 h-80 bg-gray-50 rounded-2xl shadow-md hover:shadow-xl p-4 flex flex-col items-center">
+                <img
+                  src={sub.image}
+                  className="w-full h-40 object-cover rounded-xl mb-3"
+                />
+                <h3 className="font-bold text-lg">{sub.name}</h3>
+                <p className="text-sm text-gray-500 text-center">
+                  مادة تعليمية للأطفال
+                </p>
+              </div>
+
+            </div>
+          ))}
+
+        </div>
+      </div>
+
+ {selectedSubject && (
+  <div
+    onClick={() => setSelectedSubject(null)}
+    style={{
+      position: "fixed",
+      inset: 0,
+      background: "rgba(0,0,0,0.75)",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      zIndex: 99999,
+      padding: "20px",
+    }}
+  >
+    {/* CARD */}
+    <div
+      onClick={(e) => e.stopPropagation()}
+      style={{
+        background: "white",
+        width: "95%",
+        maxWidth: "1000px",
+        maxHeight: "90vh",
+        borderRadius: "20px",
+        display: "flex",
+        flexDirection: "column",
+        overflow: "hidden",
+      }}
+    >
+      {/* HEADER */}
+      <div style={{
+        padding: "15px",
+        borderBottom: "1px solid #eee",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center"
+      }}>
+        <h2 style={{ margin: 0 }}>
+          {selectedSubject.name}
+        </h2>
+
+        <button onClick={() => setSelectedSubject(null)}>
+          ✖
+        </button>
+      </div>
+
+      {/* TABS */}
+      <div style={{
+  display: "flex",
+  gap: "15px",
+  padding: "10px 15px",
+  borderBottom: "1px solid #eee"
+}}>
+  
+  <button onClick={() => setTab("images")}>
+    📸 الصور
+  </button>
+
+  <button onClick={() => setTab("videos")}>
+    🎥 الفيديو
+  </button>
+
+  <button onClick={() => setTab("info")}>
+    📄 معلومات
+  </button>
+
+</div>
+
+      {/* CONTENT */}
+      <div style={{ padding: "15px", overflowY: "auto" }}>
+
+  {/* IMAGES */}
+  {tab === "images" && (
+    <div>
+      <h3>📸 الصور</h3>
+
+      {selectedSubject.gallery?.length > 0 ? (
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "10px"
+        }}>
+          {selectedSubject.gallery.map((img, i) => (
+            <img
+              key={i}
+              src={img}
+              style={{
+                width: "100%",
+                height: "180px",
+                objectFit: "cover",
+                borderRadius: "10px"
+              }}
+            />
+          ))}
+        </div>
+      ) : (
+        <p>لا توجد صور</p>
+      )}
     </div>
-  ))}
-</div>
+  )}
+
+  {/* VIDEOS */}
+  {tab === "videos" && (
+    <div>
+      <h3>🎥 الفيديوهات</h3>
+
+      {selectedSubject.videos?.length > 0 ? (
+        <div style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gap: "10px"
+        }}>
+          {selectedSubject.videos.map((vid, i) => (
+            <iframe
+              key={i}
+              src={vid}
+              style={{
+                width: "100%",
+                height: "220px",
+                borderRadius: "10px"
+              }}
+              allowFullScreen
+            />
+          ))}
+        </div>
+      ) : (
+        <p>لا توجد فيديوهات</p>
+      )}
+    </div>
+  )}
+
+  {/* INFO */}
+  {tab === "info" && (
+    <div style={{ textAlign: "center" }}>
+      <h3>📄 معلومات المادة</h3>
+      <p>هذه مادة: {selectedSubject.name}</p>
+    </div>
+  )}
+
 </div>
 
-      
+      </div>
+    </div>
+  
+)}
+
+    </div>
   );
 }
