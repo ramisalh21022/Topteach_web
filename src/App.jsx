@@ -1,17 +1,18 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import Navbar from "./components/Navbar.jsx";
 import Footer from "./components/Footer.jsx";
 
 export default function App() {
   return (
-   <BrowserRouter basename="/Topteach_web">
+    <HashRouter>
       <Navbar />
+
       <Routes>
         <Route path="/" element={<Home />} />
-       
-             </Routes>
+      </Routes>
+
       <Footer />
-    </BrowserRouter basename="/Topteach_web">
+    </HashRouter>
   );
 }
