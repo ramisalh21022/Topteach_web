@@ -4,7 +4,6 @@
   "version": "0.0.0",
   "type": "module",
 
-  "homepage": "https://ramisalh21022.github.io/Topteach_web",
 
   "scripts": {
     "dev": "vite",
