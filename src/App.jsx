@@ -5,13 +5,13 @@ import Footer from "./components/Footer.jsx";
 
 export default function App() {
   return (
-    <BrowserRouter>
+   <BrowserRouter basename="/Topteach_web">
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
        
              </Routes>
       <Footer />
-    </BrowserRouter>
+    </BrowserRouter basename="/Topteach_web">
   );
 }
