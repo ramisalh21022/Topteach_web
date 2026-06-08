@@ -3,6 +3,20 @@ import LOGOrami from "../assets/LOGOrami.png";
 import img1 from "../assets/img1.png";
 
 export default function Home() {
+  const handleDownload = async (url, fileName) => {
+  const response = await fetch(url);
+  const blob = await response.blob();
+
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = fileName || "game.html";
+
+  document.body.appendChild(link);
+  link.click();
+
+  document.body.removeChild(link);
+  URL.revokeObjectURL(link.href);
+};
   const [selectedSubject, setSelectedSubject] = useState(null);
 const [tab, setTab] = useState("images");
   const subjects = [
@@ -103,6 +117,39 @@ const [tab, setTab] = useState("images");
         "https://www.youtube.com/embed/PRSxZnOonNU",
         "https://www.youtube.com/embed/V23qGto9h00",
       ],
+       students: [
+  {
+    student: "كريم ",
+    gameName: " يعرف عن نفسه",
+   
+    gameUrl: "./students/karim/index.html",
+    downloadUrl: "./students/karim.zip"
+  },
+
+  {
+    student: " علي",
+    gameName: "صيد الكرة",
+    
+    gameUrl: "./students/ali/index.html",
+    downloadUrl: "./students/ali.zip"
+  },
+  {
+    student: "ابراهيم ",
+    gameName: "  قيد التصميم ",
+   
+    gameUrl: "./students/ebrahem/index.html",
+    downloadUrl: "./students/ebrahem.zip"
+  },
+
+  {
+    student: " ساندي",
+    gameName: " قيد التصميم",
+    
+    gameUrl: "./students/sandy/index.html",
+    downloadUrl: "./students/sandy.zip"
+  }
+]
+      
     },
     {
       name: "Krita",
@@ -117,6 +164,7 @@ const [tab, setTab] = useState("images");
         "https://www.youtube.com/embed/WvbZBTRvZIY",
         "https://www.youtube.com/embed/c-ZXw5OejFI",
       ],
+    
     },
     {
       name: "Blender",
@@ -288,9 +336,9 @@ const [tab, setTab] = useState("images");
     🎥 الفيديو
   </button>
 
-  <button onClick={() => setTab("info")}>
-    📄 معلومات
-  </button>
+  <button onClick={() => setTab("students")}>
+  🎮 أعمال الطلاب
+</button>
 
 </div>
 
@@ -358,12 +406,112 @@ const [tab, setTab] = useState("images");
   )}
 
   {/* INFO */}
-  {tab === "info" && (
-    <div style={{ textAlign: "center" }}>
-      <h3>📄 معلومات المادة</h3>
-      <p>هذه مادة: {selectedSubject.name}</p>
+ {tab === "students" && (
+  <div>
+    <h3
+      style={{
+        marginBottom: "20px",
+        textAlign: "center"
+      }}
+    >
+      🎮 أعمال الطلاب
+    </h3>
+
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))",
+        gap: "20px"
+      }}
+    >
+      {selectedSubject.students?.map((student, i) => (
+  <div
+    key={i}
+    style={{
+      background: "#fff",
+      borderRadius: "15px",
+      overflow: "hidden",
+      boxShadow: "0 4px 12px rgba(0,0,0,.1)"
+    }}
+  >
+    {/* معاينة اللعبة */}
+    <iframe
+      src={student.gameUrl}
+      title={student.gameName}
+      style={{
+        width: "100%",
+        height: "180px",
+        border: "none",
+        background: "#f5f5f5"
+      }}
+    />
+
+    <div style={{ padding: "15px" }}>
+      <h4
+        style={{
+          margin: "0 0 10px",
+          textAlign: "center"
+        }}
+      >
+        {student.gameName}
+      </h4>
+
+      <p
+        style={{
+          color: "#666",
+          textAlign: "center"
+        }}
+      >
+        👨‍🎓 {student.student}
+      </p>
+
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          marginTop: "15px"
+        }}
+      >
+        <a
+          href={student.gameUrl}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            flex: 1,
+            background: "#22c55e",
+            color: "#fff",
+            padding: "10px",
+            textAlign: "center",
+            borderRadius: "8px",
+            textDecoration: "none"
+          }}
+        >
+          ▶ تشغيل
+        </a>
+
+       <button
+  onClick={() =>
+    handleDownload(student.gameUrl, `${student.gameName}.html`)
+  }
+  style={{
+    flex: 1,
+    background: "#3b82f6",
+    color: "#fff",
+    padding: "10px",
+    borderRadius: "8px",
+    border: "none",
+    cursor: "pointer"
+  }}
+>
+  ⬇ تحميل
+</button>
+      </div>
     </div>
-  )}
+  </div>
+))}
+    </div>
+  </div>
+)}
 
 </div>
 
