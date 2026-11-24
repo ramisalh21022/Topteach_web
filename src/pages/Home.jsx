@@ -86,9 +86,12 @@ const [tab, setTab] = useState("images");
         
       ],
       videos: [
+       
         
         "https://www.youtube.com/embed/4vI_MTgAeOQ",
         "https://www.youtube.com/embed/W46pVAaRJes",
+         "https://www.youtube.com/embed/A9tZlzgH6os",
+        "https://www.youtube.com/embed/pMgNn9EFWls",
       ],
     },
     {
@@ -101,7 +104,18 @@ const [tab, setTab] = useState("images");
          "./subjects/arabic/img4.png",
         "./subjects/arabic/img5.png",
       ],
-      videos: [],
+      videos: [ "https://www.youtube.com/embed/A9tZlzgH6os",
+        "https://www.youtube.com/embed/pMgNn9EFWls",
+         ],
+       students_games_lesoon: [
+  {
+    student: "الصف الخامس ",
+    gameName: " قصيدة العلماء الصغار",
+   
+    gameUrl: "./students/grade5/index.html",
+    downloadUrl: "./students/grade5.zip"
+  }
+]
     },
     {
       name: "Scratch",
@@ -113,6 +127,9 @@ const [tab, setTab] = useState("images");
          "./subjects/scratch/img4.png",
         "./subjects/scratch/img5.png",],
       videos: [
+        
+        "https://www.youtube.com/embed/1GAkmll8ryU",
+        "https://www.youtube.com/embed/BN_5LCYkMDA",
         "https://www.youtube.com/embed/kJkvgPJ7DHE",
         "https://www.youtube.com/embed/PRSxZnOonNU",
         "https://www.youtube.com/embed/V23qGto9h00",
@@ -125,7 +142,41 @@ const [tab, setTab] = useState("images");
     gameUrl: "./students/karim/index.html",
     downloadUrl: "./students/karim.zip"
   },
-
+  {
+    student: "كريم ",
+    gameName: "  لعبة البطة",
+   
+    gameUrl: "./students/karim1/index.html",
+    downloadUrl: "./students/karim1.zip"
+  },
+  {
+    student: "كريم ",
+    gameName: "  لعبة السمكة",
+   
+    gameUrl: "./students/karim2/index.html",
+    downloadUrl: "./students/karim2.zip"
+  },
+  {
+    student: "كريم ",
+    gameName: "  لعبة الحركة",
+   
+    gameUrl: "./students/karim3/index.html",
+    downloadUrl: "./students/karim3.zip"
+  },
+  {
+    student: "كريم ",
+    gameName: "  لعبة العدد الاولي",
+   
+    gameUrl: "./students/karim4/index.html",
+    downloadUrl: "./students/karim4.zip"
+  },
+  {
+    student: "كريم ",
+    gameName: "  لعبة كرة السلة",
+   
+    gameUrl: "./students/karim5/index.html",
+    downloadUrl: "./students/karim5.zip"
+  },
   {
     student: " علي",
     gameName: "صيد الكرة",
@@ -135,7 +186,7 @@ const [tab, setTab] = useState("images");
   },
   {
     student: "ابراهيم ",
-    gameName: "  قيد التصميم ",
+    gameName: "لعبة الفار والقطة",
    
     gameUrl: "./students/ebrahem/index.html",
     downloadUrl: "./students/ebrahem.zip"
@@ -143,10 +194,45 @@ const [tab, setTab] = useState("images");
 
   {
     student: " ساندي",
-    gameName: " قيد التصميم",
+    gameName: " لعبة الفراشة ",
     
     gameUrl: "./students/sandy/index.html",
     downloadUrl: "./students/sandy.zip"
+  }
+  ,
+
+  {
+    student: " رينا",
+    gameName: " لعبة البالونات ",
+    
+    gameUrl: "./students/tala/index.html",
+    downloadUrl: "./students/tala.zip"
+  } ,
+
+  {
+    student: " رينا",
+    gameName: " لعبة الدب والبومة ",
+    
+    gameUrl: "./students/tala1/index.html",
+    downloadUrl: "./students/tala1.zip"
+  },
+   ,
+
+  {
+    student: " رينا",
+    gameName: " لعبة رينا تحب الرقص ",
+    
+    gameUrl: "./students/tala2/index.html",
+    downloadUrl: "./students/tala2.zip"
+  },
+   ,
+
+  {
+    student: " رينا",
+    gameName: " لعبة القنفذ ",
+    
+    gameUrl: "./students/tala3/index.html",
+    downloadUrl: "./students/tala3.zip"
   }
 ]
       
@@ -160,6 +246,7 @@ const [tab, setTab] = useState("images");
          "./subjects/krita/img4.png",
         "./subjects/krita/img5.png",],
       videos: [
+        "https://www.youtube.com/embed/XAhoP1DiaCY",
         "https://www.youtube.com/embed/m70vJ8itopw",
         "https://www.youtube.com/embed/WvbZBTRvZIY",
         "https://www.youtube.com/embed/c-ZXw5OejFI",
@@ -177,9 +264,10 @@ const [tab, setTab] = useState("images");
         "./subjects/blender/img5.png",
       ],
       videos: [
+        "https://www.youtube.com/embed/v49rxIsQiYI",
         "https://www.youtube.com/embed/6INg4P0foFQ",
         
-      ],
+      ]
     },
     {
       name: "Science",
@@ -202,10 +290,19 @@ const [tab, setTab] = useState("images");
       ],
     },
     {
-      name: "Other",
+      name: "INVENTOR & TINKERCAD &ARDUINO تطبيق موبايل ودارات الكترونية",
       image: "./subjects/other.avif",
       gallery: [],
-      videos: [],
+      videos: [ 
+        
+        "https://www.youtube.com/embed/Zub2e6UC4P4",
+        "https://www.youtube.com/embed/JLNMJ9Py-IQ",
+        "https://www.youtube.com/embed/688iTPT-Hws",
+         "https://www.youtube.com/embed/A9tZlzgH6os",
+        "https://www.youtube.com/embed/pMgNn9EFWls",
+        
+
+      ],
     },
   ];
 
@@ -338,7 +435,11 @@ const [tab, setTab] = useState("images");
 
   <button onClick={() => setTab("students")}>
   🎮 أعمال الطلاب
-</button>
+ </button>
+
+ <button onClick={() => setTab("students_games_lesoon")}>
+  🎮 الدرس كلعبة للاطفال
+ </button>
 
 </div>
 
@@ -425,6 +526,112 @@ const [tab, setTab] = useState("images");
       }}
     >
       {selectedSubject.students?.map((student, i) => (
+  <div
+    key={i}
+    style={{
+      background: "#fff",
+      borderRadius: "15px",
+      overflow: "hidden",
+      boxShadow: "0 4px 12px rgba(0,0,0,.1)"
+    }}
+  >
+    {/* معاينة اللعبة */}
+    <iframe
+      src={student.gameUrl}
+      title={student.gameName}
+      style={{
+        width: "100%",
+        height: "180px",
+        border: "none",
+        background: "#f5f5f5"
+      }}
+    />
+
+    <div style={{ padding: "15px" }}>
+      <h4
+        style={{
+          margin: "0 0 10px",
+          textAlign: "center"
+        }}
+      >
+        {student.gameName}
+      </h4>
+
+      <p
+        style={{
+          color: "#666",
+          textAlign: "center"
+        }}
+      >
+        👨‍🎓 {student.student}
+      </p>
+
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          marginTop: "15px"
+        }}
+      >
+        <a
+          href={student.gameUrl}
+          target="_blank"
+          rel="noreferrer"
+          style={{
+            flex: 1,
+            background: "#22c55e",
+            color: "#fff",
+            padding: "10px",
+            textAlign: "center",
+            borderRadius: "8px",
+            textDecoration: "none"
+          }}
+        >
+          ▶ تشغيل
+        </a>
+
+       <button
+  onClick={() =>
+    handleDownload(student.gameUrl, `${student.gameName}.html`)
+  }
+  style={{
+    flex: 1,
+    background: "#3b82f6",
+    color: "#fff",
+    padding: "10px",
+    borderRadius: "8px",
+    border: "none",
+    cursor: "pointer"
+  }}
+>
+  ⬇ تحميل
+</button>
+      </div>
+    </div>
+  </div>
+))}
+    </div>
+  </div>
+)}
+{tab === "students_games_lesoon" && (
+  <div>
+    <h3
+      style={{
+        marginBottom: "20px",
+        textAlign: "center"
+      }}
+    >
+      🎮 الدرس كلعبة
+    </h3>
+
+    <div
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))",
+        gap: "20px"
+      }}
+    >
+      {selectedSubject.students_games_lesoon?.map((student, i) => (
   <div
     key={i}
     style={{
