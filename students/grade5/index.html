@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مغامرة أبطال العربية</title>
+<style>
+:root{--ink:#17324d;--blue:#2563eb;--gold:#ffd166;--cream:#fff9e9;--green:#3bb273;--pink:#ff7aa2}
+*{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#bcecff 0%,#e7f8ff 58%,#c9f1d0 100%);font-family:Tahoma,Arial,sans-serif;color:var(--ink);min-height:100vh}
+button{font:inherit;cursor:pointer;border:0;border-radius:14px;padding:11px 17px;font-weight:800;transition:transform .12s,filter .12s}
+button:hover{filter:brightness(1.04);transform:translateY(-2px)}button:focus-visible{outline:3px solid #172554;outline-offset:3px}
+.app{max-width:1100px;margin:auto;padding:18px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px}.logo{width:52px;height:52px;border-radius:17px;background:#fff;display:grid;place-items:center;font-size:28px;box-shadow:0 5px 0 #b9dff0}
+h1{font-size:clamp(21px,4vw,32px);margin:0}.subtitle{margin:4px 0 0;color:#45657e;font-size:14px}
+.stats{display:flex;gap:8px;flex-wrap:wrap}.stat{background:#ffffffd9;border:2px solid #fff;border-radius:15px;padding:9px 13px;font-weight:800;box-shadow:0 4px 0 #c4e2ed}
+.stat span{color:#c47a00;margin-inline-start:5px}
+.panel{background:#ffffffed;border:3px solid white;border-radius:24px;box-shadow:0 9px 0 #b7dce9,0 16px 30px #38617a20;padding:18px;margin-top:18px}
+.world{position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(#82d7ff 0%,#c5f0ff 72%,#9de3a9 72%);border:3px solid #fff;min-height:390px}
+.world:before{content:"";position:absolute;inset:auto -5% 0;height:90px;background:repeating-linear-gradient(135deg,#80d18c 0 22px,#72c982 22px 44px);opacity:.8}
+.cloud{position:absolute;font-size:42px;opacity:.75;animation:float 5s ease-in-out infinite}.c1{top:35px;left:9%}.c2{top:85px;right:12%;animation-delay:1s}.c3{top:15px;right:45%;font-size:30px}
+@keyframes float{50%{transform:translateY(-9px)}}
+#game{display:block;width:100%;height:390px;position:relative;z-index:1;touch-action:pan-y}
+.hud{position:absolute;z-index:2;top:12px;right:12px;left:12px;display:flex;justify-content:space-between;pointer-events:none}.pill{background:#fff;border:2px solid #e4f6ff;border-radius:99px;padding:7px 12px;font-weight:800;font-size:13px;box-shadow:0 3px 0 #c6e5ef}
+.bottom{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:16px}.card{background:#fff;border-radius:18px;padding:15px;border:2px solid #edf7fb}.card h2{font-size:17px;margin:0 0 8px}.card p{margin:0;line-height:1.8;color:#49677d}
+.progress{height:12px;background:#e7f1f5;border-radius:20px;overflow:hidden;margin-top:10px}.progress>div{height:100%;width:0;background:linear-gradient(90deg,#40c781,#b4df4b);border-radius:20px;transition:width .3s}
+.word-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:8px;margin-top:10px}.word{background:#fff8df;border:1px solid #ffe08a;border-radius:12px;padding:9px 10px;font-size:13px}.word strong{display:block;color:#8a5700;font-size:15px;margin-bottom:4px}.word small{display:block;color:#526b7c;line-height:1.5}.word.learned{background:#e5f9eb;border-color:#8bd7a5}.vocab-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}.vocab-count{font-size:11px;color:#4b7890;background:#eaf6fc;padding:5px 8px;border-radius:20px}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:15px}.primary{background:var(--blue);color:#fff;box-shadow:0 4px 0 #1747a5}.secondary{background:#eaf5fb;color:#244b65;box-shadow:0 4px 0 #c6e0eb}.gold{background:var(--gold);color:#684500;box-shadow:0 4px 0 #e0ad39}
+.controls{display:flex;justify-content:center;gap:12px;margin-top:12px}.control{width:62px;height:52px;background:#fff;border:2px solid #d6edf6;box-shadow:0 4px 0 #b7dce9;font-size:22px;touch-action:none}
+.overlay{position:fixed;inset:0;background:#12314dcc;display:grid;place-items:center;padding:18px;z-index:10}.modal{width:min(540px,100%);background:#fff;border-radius:25px;padding:24px;box-shadow:0 12px 0 #9ac8dc;text-align:center}.modal h2{margin:0 0 8px;font-size:25px}.modal p{line-height:1.8;color:#4c687d}.answers{display:grid;grid-template-columns:1fr;gap:9px;margin-top:15px}.answer{background:#eef7ff;color:#23445e;border:2px solid #d5eaf7}.answer.correct{background:#d9f8e5;border-color:#62c98b}.answer.wrong{background:#ffe1e8;border-color:#ff8da6}
+.hidden{display:none!important}.tiny{font-size:12px;color:#648096}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#17324d;color:white;padding:11px 18px;border-radius:99px;z-index:20;box-shadow:0 5px 15px #1234;opacity:0;transition:opacity .2s;pointer-events:none}.toast.show{opacity:1}
+@media(max-width:700px){.bottom{grid-template-columns:1fr}.world,#game{min-height:330px;height:330px}.stats{width:100%;justify-content:space-between}.stat{font-size:13px;padding:7px 9px}.app{padding:12px}.panel{padding:12px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="brand"><div class="logo">🧭</div><div><h1 id="gameTitle">مغامرة أبطال العربية</h1><p class="subtitle">اقفز، اجمع الكلمات، وأكمل التحديات!</p></div></div>
+    <div class="stats">
+      <div class="stat">⭐ النقاط <span id="score">٠</span></div>
+      <div class="stat">🪙 العملات <span id="coins">٠</span></div>
+      <div class="stat">❤️ المحاولات <span id="lives">٣</span></div>
+    </div>
+  </header>
+  <main class="panel">
+    <div class="world">
+      <div class="cloud c1">☁️</div><div class="cloud c2">☁️</div><div class="cloud c3">☁️</div>
+      <div class="hud"><div class="pill" id="stageLabel">المرحلة ١</div><div class="pill" id="goalLabel">اجمع الكلمات الذهبية</div></div>
+      <canvas id="game" width="1000" height="390" aria-label="ساحة اللعبة"></canvas>
+    </div>
+    <div class="controls" aria-label="أزرار التحكم">
+      <button class="control" id="left" aria-label="يسار">◀</button>
+      <button class="control" id="jump" aria-label="قفز">⬆</button>
+      <button class="control" id="right" aria-label="يمين">▶</button>
+    </div>
+    <div class="bottom">
+      <section class="card"><h2>📚 درسنا اليوم: <span id="lessonTitle">رحلة إلى عالم النحلة</span></h2><p id="lessonDescription">تعرف إلى عالم النحل واجمع الكلمات المهمة لتفتح بوابة المعرفة.</p><div class="progress"><div id="progressBar"></div></div><p class="tiny" id="progressText" style="margin-top:7px">تقدمك: ٠٪</p></section>
+      <section class="card"><div class="vocab-heading"><h2>📖 معجم الدرس</h2><span class="vocab-count" id="vocabCount">٧ كلمات</span></div><p>اقرأ الكلمات ومعانيها. تتحول الكلمة إلى خضراء عندما تجمعها في المغامرة:</p><div class="word-list" id="wordList"></div></section>
+    </div>
+    <div class="actions">
+      <button class="primary" id="startBtn">ابدأ المغامرة</button>
+      <button class="secondary" id="soundBtn">🔊 الصوت يعمل</button>
+      <button class="secondary" id="restartBtn">↻ إعادة اللعب</button>
+    </div>
+    <p class="tiny" style="text-align:center;margin:14px 0 0">التحكم: الأسهم أو A و D للحركة، والمسافة للقفز. على الهاتف استخدم الأزرار.</p>
+  </main>
+</div>
+<div class="overlay" id="intro">
+  <div class="modal"><div style="font-size:54px">🧑‍🔬📚</div><h2>مرحباً يا بطل!</h2><p>مهمتك أن تجمع الكلمات المضيئة، وتتجاوز العقبات، ثم تجيب عن أسئلة الدرس لفتح الكنز.</p><p class="tiny">هذه نسخة تجريبية قابلة للتخصيص من ملف HTML واحد.</p><button class="primary" id="introStart">هيا نلعب!</button></div>
+</div>
+<div class="overlay hidden" id="quizOverlay">
+  <div class="modal"><div style="font-size:42px">🧠✨</div><h2 id="quizHeading">تحدي المعرفة</h2><p id="questionText"></p><div class="answers" id="answers"></div><p class="tiny" id="feedback" aria-live="polite"></p><button class="gold hidden" id="continueBtn">متابعة المغامرة</button></div>
+</div>
+<div class="overlay hidden" id="poemOverlay">
+  <div class="modal"><div style="font-size:42px">📜🧩</div><h2 id="poemHeading">تحدي حفظ القصيدة</h2><p id="poemPrompt">اضغط الأبيات بالترتيب الصحيح كما وردت في القصيدة.</p><div class="answers" id="poemChoices"></div><p class="tiny" id="poemFeedback" aria-live="polite"></p><button class="gold hidden" id="poemContinue">متابعة</button></div>
+</div>
+<div class="overlay hidden" id="finishOverlay">
+  <div class="modal"><div style="font-size:55px">🏆🎉</div><h2>أحسنت يا بطل!</h2><p id="finishText">لقد أكملت الدرس!</p><div style="font-size:25px;margin:15px">⭐⭐⭐</div><button class="primary" id="againBtn">العب مرة أخرى</button></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+/* ===================== محتوى الدرس =====================
+   لتغيير اللعبة: عدّل كائن lessonData أدناه فقط.
+   يمكن لاحقاً استبداله بمحتوى JSON مولّد من نظام الدروس.
+*/
+const lessonData = {
+  "id":"scientists-kids-01",
+  "title":"مغامرة العلماء الصغار",
+  "description":"اجمع كلمات العلم والمعرفة، وتعلم كيف نصبح علماء المستقبل ونبني وطننا بالعلم والعمل.",
+  "vocabulary":[
+    {"word":"نسمو","meaning":"نرتقي ونعلو"},
+    {"word":"نتوانى","meaning":"نتكاسل أو نتأخر"},
+    {"word":"الجهل","meaning":"عدم المعرفة"},
+    {"word":"الأقمار","meaning":"جمع قمر"},
+    {"word":"الحل","meaning":"الإجابة أو الطريقة المناسبة لحل المشكلة"},
+    {"word":"المجهول","meaning":"ما لا نعرفه"},
+    {"word":"يزهو","meaning":"يفتخر ويتألق"}
+  ],
+  "collectibles":["نسمو","نتوانى","الجهل","الأقمار","الحل","المجهول","يزهو"],
+  "questions":[
+    {"question":"ما معنى كلمة (نتوانى)؟","answers":["نتكاسل","نجتهد","نتعاون"],"correct":0,"explanation":"نتوانى تعني نتكاسل أو نتأخر."},
+    {"question":"ما ضد كلمة (الجهل)؟","answers":["الخوف","العلم","الكسل"],"correct":1,"explanation":"ضد الجهل هو العلم والمعرفة."},
+    {"question":"ما مفرد كلمة (أقمار)؟","answers":["قمر","قلم","قمة"],"correct":0,"explanation":"مفرد أقمار هو قمر."},
+    {"question":"ما جمع كلمة (الحل)؟","answers":["الحالم","الحلول","الأحلام"],"correct":1,"explanation":"جمع كلمة الحل هو الحلول."},
+    {"question":"ما الفكرة العامة من القصيدة؟","answers":["أهمية اللعب واللهو","أهمية العلم والاجتهاد والعمل لبناء الوطن","وصف الطبيعة"],"correct":1,"explanation":"تدعو القصيدة إلى طلب العلم والاجتهاد والعمل لبناء الوطن."},
+    {"question":"ماذا نفعل عندما نواجه مشكلة؟","answers":["نتركها","نخاف منها","نبحث عن حل لها"],"correct":2,"explanation":"يقول الشاعر: نبحث في أية مشكلة وسريعاً يأتينا الحل."},
+    {"question":"لماذا لا نخشى الفشل؟","answers":["لأننا ندرس ونعمل","لأننا لا نحاول","لأننا نتجنب المشكلات"],"correct":0,"explanation":"الدراسة والعمل يساعداننا على مواجهة الصعوبات."},
+    {"question":"بماذا يزهو الوطن ويصبح حاضره أجمل؟","answers":["بالكسل","بالعلم والعمل","بالابتعاد عن التعلم"],"correct":1,"explanation":"العلم والعمل يساهمان في تقدم الوطن."}
+  ],
+  "poemChallenge": {
+    "title":"رتّب أبيات القصيدة",
+    "lines":[
+      "نسمو للأقمار ونعلو ويهدينا العقل للنور",
+      "ننهل علماً لا نتوانى كلا لن يغلبنا الجهل",
+      "نبحث في أية مشكلة وسريعاً يأتينا الحل",
+      "ندرس في جد ونشاط نعم القول ونعم الفعل"
+    ],
+    "fillQuestion":"ننهل ______ لا نتوانى",
+    "fillAnswers":["علماً","لعباً","نوماً"],
+    "fillCorrect":0,
+    "fillExplanation":"البيت يقول: ننهل علماً لا نتوانى. ومعنى ننهل: نأخذ ونتعلم بكثرة."
+  }
+};
+
+const $=id=>document.getElementById(id);
+const canvas=$('game'),ctx=canvas.getContext('2d');
+let lesson=null, running=false, score=0, coins=0, lives=3, collected=[], questionIndex=0, soundOn=true, audioCtx=null;
+let player, platforms, pickups, hazards, camera=0, lastTime=0, keys={}, poemDone=false, poemOrder=[], poemStep=0;
+const W=1000,H=390,worldWidth=2200,gravity=1500;
+function loadLesson(data){
+  if(!data || !data.title || !Array.isArray(data.questions)) throw new Error('صيغة الدرس غير مكتملة');
+  lesson=structuredClone(data);
+  $('gameTitle').textContent='مغامرة أبطال العربية';
+  $('lessonTitle').textContent=lesson.title;
+  $('lessonDescription').textContent=lesson.description||'هيا نتعلم ونلعب!';
+  renderVocabulary();
+  resetGame();
+}
+function resetGame(){
+  score=0;coins=0;lives=3;collected=[];questionIndex=0;camera=0;running=false;poemDone=false;poemStep=0;
+  player={x:55,y:270,w:35,h:48,vx:0,vy:0,onGround:false,face:1,invuln:0};
+  platforms=[{x:0,y:340,w:420,h:60},{x:490,y:305,w:180,h:22},{x:730,y:270,w:170,h:22},{x:970,y:330,w:360,h:60},{x:1390,y:290,w:180,h:22},{x:1640,y:255,w:190,h:22},{x:1900,y:330,w:360,h:60}];
+  pickups=lesson.collectibles.map((word,i)=>({x:180+(lesson.collectibles.length<=1?0:i*(1800/(lesson.collectibles.length-1))),y:[292,255,290,275][i%4],word,got:false}));
+  hazards=[{x:560,y:280,w:32,h:25},{x:1120,y:305,w:36,h:25},{x:1735,y:230,w:34,h:25}];
+  updateHud();draw();
+}
+function updateHud(){
+  $('score').textContent=String(score).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+  $('coins').textContent=String(coins).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+  $('lives').textContent=String(lives).replace(/\d/g,d=>'٠١٢٣٤٥٦٧٨٩'[d]);
+  $('stageLabel').textContent='المرحلة '+(Math.min(questionIndex+1,lesson.questions.length+1));
+  $('progressBar').style.width=(collected.length/Math.max(lesson.collectibles.length,1)*100)+'%';
+  $('progressText').textContent='الكلمات المجموعة: '+collected.length+' من '+lesson.collectibles.length;
+  renderVocabulary();
+}
+function renderVocabulary(){
+  const words=lesson.vocabulary||[];
+  $('vocabCount').textContent=words.length+' كلمات';
+  $('wordList').innerHTML=words.length?words.map(item=>{
+    const learned=collected.includes(item.word);
+    return '<div class="word '+(learned?'learned':'')+'"><strong>'+(learned?'✓ ':'✦ ')+escapeHtml(item.word)+'</strong><small>'+escapeHtml(item.meaning||'')+'</small></div>';
+  }).join(''):'<span class="tiny">لا توجد مفردات مضافة لهذا الدرس.</span>';
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function beep(freq=600,duration=.1,type='sine'){
+  if(!soundOn)return;
+  try{audioCtx=audioCtx||new(window.AudioContext||window.webkitAudioContext)();let o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(.08,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+duration);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+duration)}catch(e){}
+}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1400)}
+function start(){ $('intro').classList.add('hidden');running=true;lastTime=performance.now();requestAnimationFrame(loop);beep(660,.15);}
+function loop(t){if(!running)return;let dt=Math.min((t-lastTime)/1000,.032);lastTime=t;update(dt);draw();requestAnimationFrame(loop)}
+function update(dt){
+  let dir=(keys.right?1:0)-(keys.left?1:0);player.vx=dir*270;if(dir)player.face=dir;
+  player.x=Math.max(0,Math.min(worldWidth-player.w,player.x+player.vx*dt));
+  player.vy+=gravity*dt;player.y+=player.vy*dt;player.onGround=false;
+  platforms.forEach(p=>{if(player.x+player.w>p.x&&player.x<p.x+p.w&&player.y+player.h>p.y&&player.y+player.h<p.y+p.h+18&&player.vy>=0){player.y=p.y-player.h;player.vy=0;player.onGround=true}});
+  if(player.y>H+100){hurt()}
+  if(player.invuln>0)player.invuln-=dt;
+  pickups.forEach(p=>{if(!p.got&&Math.abs((player.x+player.w/2)-p.x)<35&&Math.abs((player.y+player.h/2)-p.y)<45){p.got=true;collected.push(p.word);coins++;score+=100;beep(880,.13);toast('جمعت كلمة: '+p.word);updateHud();if(collected.length===lesson.collectibles.length)toast('رائع! وصلت إلى بوابة التحدي');}});
+  hazards.forEach(h=>{if(player.invuln<=0&&player.x+player.w>h.x&&player.x<h.x+h.w&&player.y+player.h>h.y&&player.y<h.y+h.h)hurt()});
+  camera=Math.max(0,Math.min(worldWidth-W,player.x-W*.38));
+  if(player.x>worldWidth-120){running=false;showQuizOrFinish();}
+}
+function hurt(){if(player.invuln>0)return;lives--;player.invuln=1.2;player.vy=-430;beep(180,.2,'sawtooth');updateHud();if(lives<=0){running=false;$('quizHeading').textContent='لا بأس، حاول مجدداً!';$('questionText').textContent='نفدت المحاولات. يمكنك إعادة المغامرة والتعلم من جديد.';$('answers').innerHTML='';$('feedback').textContent='';$('continueBtn').textContent='إعادة اللعب';$('continueBtn').onclick=()=>{$('quizOverlay').classList.add('hidden');resetGame();start()};$('continueBtn').classList.remove('hidden');$('quizOverlay').classList.remove('hidden')}}
+function draw(){
+  ctx.clearRect(0,0,W,H);ctx.save();ctx.translate(-camera,0);
+  // عالم العلماء الصغار: تلال خضراء، كتب ومختبرات ونجوم
+  for(let i=0;i<13;i++){let x=i*190;ctx.fillStyle=i%2?'#9bdca5':'#82d293';ctx.beginPath();ctx.arc(x+80,344,95,Math.PI,0);ctx.fill();}
+  for(let i=0;i<8;i++){let x=110+i*285;ctx.font='30px Arial';ctx.textAlign='center';ctx.fillText(['📚','🔭','🧪','💡'][i%4],x,125+(i%2)*42);}
+  ctx.fillStyle='#fff3a6';for(let i=0;i<22;i++){let x=45+i*102,y=45+(i%4)*25;ctx.beginPath();ctx.arc(x,y,2.5,0,Math.PI*2);ctx.fill();}
+  platforms.forEach(p=>{roundRect(p.x,p.y,p.w,p.h,9,'#a66a3d');roundRect(p.x,p.y,p.w,10,8,'#50bd69')});
+  pickups.forEach(p=>{if(!p.got){ctx.font='30px Arial';ctx.textAlign='center';ctx.fillText('✨',p.x,p.y);ctx.font='bold 15px Tahoma';ctx.fillStyle='#744900';ctx.fillText(p.word,p.x,p.y+23)}});
+  hazards.forEach((h,i)=>{ctx.font='30px Arial';ctx.textAlign='center';ctx.fillText(i%2?'📕':'🧩',h.x+16,h.y+25)});
+  // بوابة المعرفة على هيئة كتاب مفتوح
+  ctx.fillStyle='#7546b8';ctx.fillRect(2070,245,16,95);ctx.fillRect(2130,245,16,95);ctx.fillRect(2070,245,76,12);ctx.font='32px Arial';ctx.fillText('📖',2108,236);
+  // player
+  if(player.invuln<=0||Math.floor(player.invuln*12)%2===0){ctx.font='43px Arial';ctx.textAlign='center';ctx.fillText('🧑‍🔬',player.x+player.w/2,player.y+player.h-3)}
+  ctx.restore();
+}
+function roundRect(x,y,w,h,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill()}
+function jump(){if(player&&player.onGround&&running){player.vy=-570;player.onGround=false;beep(420,.08)}}
+function showQuizOrFinish(){
+  if(questionIndex>=lesson.questions.length){finish();return}
+  let q=lesson.questions[questionIndex];$('quizHeading').textContent='تحدي المعرفة '+(questionIndex+1)+' من '+lesson.questions.length;$('questionText').textContent=q.question;$('answers').innerHTML='';$('feedback').textContent='';$('continueBtn').classList.add('hidden');
+  q.answers.forEach((a,i)=>{let b=document.createElement('button');b.className='answer';b.textContent=a;b.onclick=()=>answer(i,b,q);$('answers').appendChild(b)});
+  $('quizOverlay').classList.remove('hidden');
+}
+function answer(i,btn,q){
+  [...$('answers').children].forEach(b=>b.disabled=true);
+  if(i===q.correct){btn.classList.add('correct');score+=150;coins++;$('feedback').textContent='إجابة صحيحة! '+(q.explanation||'أحسنت!');beep(900,.18);toast('أحسنت! +١٥٠ نقطة')}
+  else{btn.classList.add('wrong');$('answers').children[q.correct]?.classList.add('correct');$('feedback').textContent='حاول أن تتذكر: '+(q.explanation||'راجع الدرس ثم حاول مجدداً.');beep(250,.16,'triangle')}
+  updateHud();$('continueBtn').textContent=questionIndex===lesson.questions.length-1?'عرض النتيجة':'متابعة';$('continueBtn').classList.remove('hidden');$('continueBtn').onclick=()=>{questionIndex++;$('quizOverlay').classList.add('hidden');if(questionIndex>=lesson.questions.length)finish();else{player.x=Math.min(1900,player.x+250);player.y=220;player.vy=0;running=true;lastTime=performance.now();requestAnimationFrame(loop)}};
+}
+function finish(){
+  running=false;
+  if(lesson.poemChallenge && !poemDone){startPoemChallenge();return;}
+  $('finishText').textContent='أنهيت درس «'+lesson.title+'» وجمعت '+collected.length+' كلمات وحصلت على '+score+' نقطة. أنت بطل اللغة العربية!';
+  $('finishOverlay').classList.remove('hidden');beep(740,.13);setTimeout(()=>beep(980,.2),140);
+}
+function startPoemChallenge(){
+  const c=lesson.poemChallenge; poemStep=0; poemOrder=[];
+  $('poemOverlay').classList.remove('hidden');$('poemHeading').textContent=c.title||'تحدي حفظ القصيدة';
+  $('poemPrompt').textContent='رتّب الأبيات الأربعة بالنقر عليها بالترتيب الصحيح كما وردت في القصيدة.';
+  $('poemFeedback').textContent='';$('poemContinue').classList.add('hidden');
+  const indexes=c.lines.map((_,i)=>i).sort(()=>Math.random()-.5);
+  $('poemChoices').innerHTML='';
+  indexes.forEach(i=>{const b=document.createElement('button');b.className='answer';b.textContent=c.lines[i];b.dataset.index=i;b.onclick=()=>choosePoemLine(i,b);$('poemChoices').appendChild(b)});
+}
+function choosePoemLine(index,button){
+  const c=lesson.poemChallenge, expected=poemOrder.length;
+  if(index===expected){poemOrder.push(index);button.classList.add('correct');button.disabled=true;score+=100;beep(760,.1);$('poemFeedback').textContent='أحسنت! رتبت '+poemOrder.length+' من '+c.lines.length+' أبيات.';
+    if(poemOrder.length===c.lines.length){$('poemHeading').textContent='رائع! أكملت ترتيب الأبيات';$('poemPrompt').textContent=c.fillQuestion||'أحسنت!';$('poemChoices').innerHTML='';renderPoemFill();}
+  }else{button.classList.add('wrong');$('poemFeedback').textContent='ليس هذا البيت التالي. تذكّر ترتيب القصيدة وحاول مرة أخرى.';beep(220,.12,'triangle');setTimeout(()=>button.classList.remove('wrong'),650)}
+}
+function renderPoemFill(){
+  const c=lesson.poemChallenge;$('poemFeedback').textContent='والآن أكمل البيت بالكلمة المناسبة.';
+  c.fillAnswers.forEach((a,i)=>{const b=document.createElement('button');b.className='answer';b.textContent=a;b.onclick=()=>{[...$('poemChoices').children].forEach(x=>x.disabled=true);if(i===c.fillCorrect){b.classList.add('correct');score+=150;$('poemFeedback').textContent='إجابة صحيحة! '+(c.fillExplanation||'أحسنت.');beep(920,.16)}else{b.classList.add('wrong');$('poemChoices').children[c.fillCorrect]?.classList.add('correct');$('poemFeedback').textContent='الكلمة الصحيحة هي: '+c.fillAnswers[c.fillCorrect]+'. '+(c.fillExplanation||'');beep(220,.15,'triangle')}$('poemContinue').textContent='استلام الكنز';$('poemContinue').classList.remove('hidden');$('poemContinue').onclick=()=>{$('poemOverlay').classList.add('hidden');poemDone=true;updateHud();finish()}};$('poemChoices').appendChild(b)});
+}
+function restart(){['intro','quizOverlay','poemOverlay','finishOverlay'].forEach(id=>$(id).classList.add('hidden'));loadLesson(lesson);start()}
+$('introStart').onclick=start;$('startBtn').onclick=()=>{if(!running)start()};$('restartBtn').onclick=restart;$('againBtn').onclick=restart;
+$('soundBtn').onclick=()=>{soundOn=!soundOn;$('soundBtn').textContent=soundOn?'🔊 الصوت يعمل':'🔇 الصوت متوقف';if(soundOn)beep(600,.1)};
+function bindHold(id,key){let el=$(id);el.addEventListener('pointerdown',e=>{e.preventDefault();keys[key]=true;el.setPointerCapture(e.pointerId)});['pointerup','pointercancel','lostpointercapture'].forEach(ev=>el.addEventListener(ev,()=>keys[key]=false))}
+bindHold('left','left');bindHold('right','right');$('jump').addEventListener('pointerdown',e=>{e.preventDefault();jump()});
+window.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight','ArrowUp',' '].includes(e.key))e.preventDefault();if(e.key==='ArrowLeft'||e.key.toLowerCase()==='a')keys.left=true;if(e.key==='ArrowRight'||e.key.toLowerCase()==='d')keys.right=true;if(e.key===' '||e.key==='ArrowUp'||e.key.toLowerCase()==='w')jump()});
+window.addEventListener('keyup',e=>{if(e.key==='ArrowLeft'||e.key.toLowerCase()==='a')keys.left=false;if(e.key==='ArrowRight'||e.key.toLowerCase()==='d')keys.right=false});
+// نقطة التوسعة: استدعِ loadLesson(lessonJson) لتحميل درس آخر من بيانات JSON.
+loadLesson(lessonData);
+</script>
+</body>
+</html>
